@@ -3,7 +3,7 @@ const data = require('./data'); // importing data.js
 const app = express(); // asigning to variable and invoking express 
 //const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
-
+const morgan = require('morgan')
 const PORT = process.env.PORT || 4000
 
 //---------------GET Requests--------------//
@@ -51,6 +51,13 @@ app.get('/users/:id/schedules', (req, res) => {
 app.use(express.json());
 // app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.urlencoded({ extended: true }));
+
+//Logging middleware
+app.use(morgan('dev'))
+
+// view enginr  ejs ----
+app.set('view engine', 'ejs')
+
 //---------------POST Requests--------------//
 
 // app.post('/schedules', (req, res) => {
