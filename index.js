@@ -8,22 +8,52 @@ const PORT = process.env.PORT || 4000
 
 //---------------GET Requests--------------//
 
-app.get('/', (req, res) => res.send('<h1>Welcome to our Shcheduled Website</h1>'))
+app.get('/', (req, res) => {
+    //res.send('<h1>Welcome to our Shcheduled Website</h1>')
+    res.render('pages/home')
+})
 
 app.get('/users', (req, res) => {
-    res.json(data.users)
+    //res.json(data.users)
+    // console.log(`before users- ${data.users}`)
+    res.render('pages/users', { users: data.users })
+    // console.log(`after users- ${users}`)
 })
 
 app.get('/schedules', (req, res) => {
-    res.send(data.schedules);
-
-    console.log(data.users.length)
+    //  res.send(data.schedules);
+    res.render('pages/schedules', { schedules: data.schedules })
+    // console.log(data.users.length)
 })
+
+
+
+//-----------Rendering New User Page -----
+
+app.get('/users/new', (req, res) => {
+    res.render('pages/new-user')
+})
+
+//------------------------------------------
+
+//----------Rendering New schedule for a user-----
+
+app.get('/schedules/new', (req, res) => {
+    res.render('pages/new-schedule')
+})
+
+//--------------------------------------------
 
 
 app.get(`/users/:id`, (req, res) => {
     const user = data.users[req.params.id]
-    if (user) { res.send(user) }
+
+
+    // console.log(id)
+    if (user) {
+        res.send(user)
+        //   res.redirect('/user', {user:user})
+    }
     else { res.send("the user does not exist") }
 
 
@@ -47,6 +77,7 @@ app.get('/users/:id/schedules', (req, res) => {
     }
 })
 
+
 //----------Body Parser Middleware-------
 app.use(express.json());
 // app.use(bodyParser.urlencoded({ extended: false }))
@@ -54,6 +85,10 @@ app.use(express.urlencoded({ extended: true }));
 
 //Logging middleware
 app.use(morgan('dev'))
+
+
+//set Static folder
+app.use(express.static('public'))
 
 // view enginr  ejs ----
 app.set('view engine', 'ejs')
@@ -77,9 +112,10 @@ app.post('/schedules', (req, res) => {
     }
 
     data.schedules.push(newSchedule);
-    res.json(data.schedules)
+    //  res.json(data.schedules)
     //   console.log(req.body)
     //   res.send(req.body)
+    res.redirect('/schedules')
 })
 
 
@@ -102,8 +138,10 @@ app.post('/users', (req, res) => {
     }
 
     data.users.push(newUser);
-    res.send(data.users)
-    //  res.redirect('/users')
+    // res.send(data.users)
+    res.redirect('/users')
+
+    // changing to res.redirect will cahnge the
 })
 
 

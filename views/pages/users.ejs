@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" /styles.css" />
+    <title>Users</title>
+</head>
+
+<body>
+    <%- include('../partials/header'); %>
+        <main>
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="1">First Name</th>
+                        <th colspan="1">Last Name</th>
+                        <th colspan="1"> Email </th>
+                        <th colspan="1"> Password </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for ( let i=0; i< users.length ; i++){ %>
+                        <tr colspan="2">
+                            <td>
+                                <%= users[i].firstname %>
+                            </td>
+                            <td>
+                                <%= users[i].lastname %>
+                            </td>
+                            <td>
+                                <%= users[i].email %>
+                            </td>
+                            <td>
+                                <%= users[i].password %>
+                            </td>
+                        </tr>
+                        <% } %>
+
+                </tbody>
+            </table>
+
+        </main>
+</body>
+
+</html>
