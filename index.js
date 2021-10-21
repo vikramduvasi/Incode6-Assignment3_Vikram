@@ -51,8 +51,8 @@ app.get(`/users/:id`, (req, res) => {
 
     // console.log(id)
     if (user) {
-        res.send(user)
-        //   res.redirect('/user', {user:user})
+        //   res.send(user)
+        res.render('pages/user', { user: user })
     }
     else { res.send("the user does not exist") }
 
@@ -68,7 +68,8 @@ app.get('/users/:id/schedules', (req, res) => {
     const found = data.schedules.some(schedule => schedule.user_id === parseInt(req.params.id))
     if (found) {
         //res.json(data.schedules.filter(schedule => schedule.user_id === parseInt(req.params.user_id)))
-        res.send(user_schedule)
+        // res.send(user_schedule)
+        res.render('pages/schedule', { user_schedule: user_schedule })
 
     }
     else {

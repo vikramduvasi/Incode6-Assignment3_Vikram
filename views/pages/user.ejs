@@ -23,24 +23,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%= for( let i=0; i< users.length ; i++){ %>
-                        <% if (i==id){ %>
-                            <tr colspan="2">
-                                <td>
-                                    <%= user[i].firstname %>
-                                </td>
-                                <td>
-                                    <%= user[i].lastname %>
-                                </td>
-                                <td>
-                                    <%= user[i].email %>
-                                </td>
-                                <td>
-                                    <%= user[i].password %>
-                                </td>
-                            </tr>
-                            <% } %>
-                                <% } %>
+
+                    <tr colspan="2">
+                        <td>
+                            <%= user.firstname %>
+                        </td>
+                        <td>
+                            <%= user.lastname %>
+                        </td>
+                        <td>
+                            <%= user.email %>
+                        </td>
+                        <td>
+                            <%= user.password %>
+                        </td>
+                    </tr>
+
 
                 </tbody>
             </table>
