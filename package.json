@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
+    "create_db": "psql -U postgres -f sql/create_db.sql",
+    "create_tables": "psql -U postgres -d mr_coffee -f sql/create_tables.sql",
+    "seed_tables": "psql -U postgres -d mr_coffee -f sql/seed_tables.sql",
+    "setup_db": "npm run create_db && npm run create_tables && npm run seed_tables",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vikram Duvasi",
