@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" /styles.css" />
     <title>New User</title>
 </head>
 
@@ -13,26 +14,28 @@
     <%- include('../partials/header'); %>
 
         <main>
-            <form method="POST" action="/users">
-                <div>
+            <form method="POST" action="/users" id="form">
+                <div class="form-control">
                     <label for="firstname">First Name</label>
                     <input type="text" id="firstname" name="firstname">
                 </div>
-                <div>
+                <div class="form-control">
                     <label for="lastname">Last Name</label>
                     <input type="text" id="lastname" name="lastname">
                 </div>
-                <div>
+                <div class="form-control">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email">
                 </div>
-                <div>
+                <div class="form-control">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password">
                 </div>
                 <button type="submit">Add New User</button>
             </form>
         </main>
+
+        <%- include('../partials/footer'); %>
 </body>
 
 </html>
