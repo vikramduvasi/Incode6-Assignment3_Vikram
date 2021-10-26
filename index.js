@@ -1,28 +1,60 @@
 const express = require('express'); // importing express to index.js 
 const data = require('./data'); // importing data.js
 const app = express(); // asigning to variable and invoking express 
-//const bodyParser = require('body-parser');
+
 const bcrypt = require('bcrypt');
-const morgan = require('morgan')
-const PORT = process.env.PORT || 4000
+const morgan = require('morgan');
+
+const db = require('./database')
+const PORT = process.env.PORT || 4100
+
 
 //---------------GET Requests--------------//
 
+//---------Home Page -------------//
 app.get('/', (req, res) => {
     //res.send('<h1>Welcome to our Shcheduled Website</h1>')
     res.render('pages/home')
+
 })
 
 app.get('/users', (req, res) => {
     //res.json(data.users)
     // console.log(`before users- ${data.users}`)
-    res.render('pages/users', { users: data.users })
+    // res.render('pages/users', { users: data.users })
     // console.log(`after users- ${users}`)
+
+    db.any('SELECT * FROM users;')
+        .then((users) => {
+            res.render('pages/users',
+                {
+                    users: users
+                })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
 })
 
 app.get('/schedules', (req, res) => {
     //  res.send(data.schedules);
-    res.render('pages/schedules', { schedules: data.schedules })
+    //    res.render('pages/schedules', { schedules: data.schedules })
+
+
+    db.any('SELECT * FROM schedules;')
+        .then((schedules) => {
+            res.render('pages/schedules',
+                {
+                    schedules: schedules
+                }
+            )
+        })
+
+        .catch((error) => {
+            console.log(error)
+        })
+
     // console.log(data.users.length)
 })
 
@@ -103,20 +135,42 @@ app.set('view engine', 'ejs')
 
 // })
 
+
+
 app.post('/schedules', (req, res) => {
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-    const newSchedule = {
-        user_id: parseInt(req.body.user_id),
-        day: parseInt(req.body.day),
-        start_at: req.body.start_at,
-        end_at: req.body.end_at
-    }
+    const { user_id, day, start_at, end_at } = req.body
+    // const dayName = []
+    // dayName = day.map((day) => {
+    //     return days.indexOf(day);
 
-    data.schedules.push(newSchedule);
-    //  res.json(data.schedules)
-    //   console.log(req.body)
-    //   res.send(req.body)
-    res.redirect('/schedules')
+    // })
+
+    // console.log(dayName)
+    const day1 = days[day]
+
+    db.none('INSERT INTO schedules (user_id, day, start_at, end_at) VALUES ($1, $2, $3, $4);',
+        [user_id, day1, start_at, end_at])
+        .then(() => {
+            res.redirect('/schedules')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
+    // const newSchedule = {
+    //     user_id: parseInt(req.body.user_id),
+    //     day: parseInt(req.body.day),
+    //     start_at: req.body.start_at,
+    //     end_at: req.body.end_at
+    // }
+
+    // data.schedules.push(newSchedule);
+    // //  res.json(data.schedules)
+    // //   console.log(req.body)
+    // //   res.send(req.body)
+    // res.redirect('/schedules')
 })
 
 

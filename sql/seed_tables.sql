@@ -18,4 +18,8 @@ VALUES
     INSERT INTO 
      users (firstname, lastname, email, password)
     VALUES ('vikram','Duvasi', 'sdfghj@gmail.com', 'wesrdfghjkl657890');
+
+    INSERT INTO 
+     schedules (user_id, day, start_at, end_at) 
+     VALUES ('0', '1', '2PM', '11PM' );
     
