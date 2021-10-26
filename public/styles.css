@@ -30,6 +30,7 @@ table, th, td {
       /* margin-left: auto;
       margin-right: auto; */
       margin: auto;
+      color:rgb(51, 51, 61);
   }
 
    .logo {
@@ -135,7 +136,7 @@ form {
 
 }
 
-.form-control input {
+.form-control input,select {
     display: block;
     padding: 7px;
     border-radius: 4px;

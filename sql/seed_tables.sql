@@ -21,5 +21,5 @@ VALUES
 
     INSERT INTO 
      schedules (user_id, day, start_at, end_at) 
-     VALUES ('0', '1', '2PM', '11PM' );
+     VALUES ('0', 'Monday', '2PM', '11PM' );
     

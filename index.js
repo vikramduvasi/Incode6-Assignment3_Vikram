@@ -148,10 +148,10 @@ app.post('/schedules', (req, res) => {
     // })
 
     // console.log(dayName)
-    const day1 = days[day]
+    //const day1 = days[day]
 
     db.none('INSERT INTO schedules (user_id, day, start_at, end_at) VALUES ($1, $2, $3, $4);',
-        [user_id, day1, start_at, end_at])
+        [user_id, day, start_at, end_at])
         .then(() => {
             res.redirect('/schedules')
         })
@@ -176,25 +176,37 @@ app.post('/schedules', (req, res) => {
 
 app.post('/users', (req, res) => {
 
-
     // TODO: Add hash to user object and then push to user array
     // Using bcryptjs
 
-    const password = req.body.password
+    const { firstname, lastname, email, password } = req.body
+
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(password, salt)
 
+    // inserting user record into user table using user form through POST request
 
-    const newUser = {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: hash
-    }
+    db.none('INSERT INTO users (firstname, lastname, email, password) VALUES ($1, $2, $3, $4);',
+        [firstname, lastname, email, hash])
+        .then(() => {
+            res.redirect('/users')
+        })
+        .catch((error) => {
+            res.render(error)
+        })
 
-    data.users.push(newUser);
-    // res.send(data.users)
-    res.redirect('/users')
+
+    // const newUser = {
+    //     firstname: req.body.firstname,
+    //     lastname: req.body.lastname,
+    //     email: req.body.email,
+    //     password: hash
+    // }
+
+    // data.users.push(newUser);
+    // // res.send(data.users)
+    // res.redirect('/users')
+
 
     // changing to res.redirect will cahnge the
 })
